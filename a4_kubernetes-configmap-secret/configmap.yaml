@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms-usuarios-server
+data:
+  port: "8001"
+  db_host: mysql8:3306
+  database: db-ms-docker-kube
+#  username: root
+#  password: sasa
+  curso_url: ms-cursos-server:8002
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ms-cursos-server
+data:
+  port: "8002"
+  db_host: postgres14:5432
+  database: db-ms-docker-kube
+#  username: postgres
+#  password: sasa
+  usuario_url: ms-usuarios-server:8001
+
+
+
+
