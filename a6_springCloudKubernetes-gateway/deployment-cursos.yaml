@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ms-cursos-server
+  name: ms-cursos-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-cursos-server
+  template:
+    metadata:
+      labels:
+        app: ms-cursos-server
+    spec:
+      containers:
+        - image: 4xe1/i-cursos:latest
+          name: i-cursos
+          ports:
+            - containerPort: 8002
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: ms-cursos-server
+                  key: port
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: ms-cursos-server
+                  key: db_host
+            - name: DB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: ms-cursos-server
+                  key: database
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: ms-cursos-server
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ms-cursos-server
+                  key: password
+            - name: USUARIOS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: ms-cursos-server
+                  key: usuario_url

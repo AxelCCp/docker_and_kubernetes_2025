@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: ms-cursos-server
+          uri: lb://ms-cursos-server
+          predicates:
+            - Path=/api/cursos/**
+          filters:
+            - StripPrefix=2
+        - id: ms-usuarios-server
+          uri: lb://ms-usuarios-server
+          predicates:
+            - Path=/api/usuarios/**
+          filters:
+            - StripPrefix=2
